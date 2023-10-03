@@ -1,0 +1,116 @@
+﻿@model EmployeeVM
+
+<div class="card shadow border-0" style="margin-bottom: 60px">
+    <div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
+        <div class="rox">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">@(Model.Employee.Id != 0 ? "Редагування Даних" : "Створення") Працівника</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4 ">
+        <form method="post" class="row" enctype="multipart/form-data">
+            <input asp-for="Employee.Id" hidden />
+            <div class="row">
+                <div class="col-10">
+                    <div class="border p-3">
+                        <div asp-validation-summary="ModelOnly"></div>
+                        <div class="form-floating py-3 col-12">
+                            <input asp-for="Employee.LastName" class="form-control border-0 shadow" />
+                            <label asp-for="Employee.LastName" class="ms-2 text-muted"></label>
+                            <span asp-validation-for="Employee.LastName" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-3 col-12">
+                            <input asp-for="Employee.FirstName" class="form-control border-0 shadow" />
+                            <label asp-for="Employee.FirstName" class="ms-2 text-muted"></label>
+                            <span asp-validation-for="Employee.FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-3 col-12">
+                            <input asp-for="Employee.MiddleName" class="form-control border-0 shadow" />
+                            <label asp-for="Employee.MiddleName" class="ms-2 text-muted"></label>
+                            <span asp-validation-for="Employee.MiddleName" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-3 col-12">
+                            <input asp-for="Employee.BirthYear" class="form-control border-0 shadow" />
+                            <label asp-for="Employee.BirthYear" class="ms-2 text-muted"></label>
+                            <span asp-validation-for="Employee.BirthYear" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-3 col-12">
+                            <input asp-for="Employee.Education" class="form-control border-0 shadow" />
+                            <label asp-for="Employee.Education" class="ms-2 text-muted"></label>
+                            <span asp-validation-for="Employee.Education" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-3 col-12">
+                            <input asp-for="Employee.Position" class="form-control border-0 shadow" />
+                            <label asp-for="Employee.Position" class="ms-2 text-muted"></label>
+                            <span asp-validation-for="Employee.Position" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-3 col-12">
+                            <input asp-for="Employee.Salary" class="form-control border-0 shadow" />
+                            <label asp-for="Employee.Salary" class="ms-2 text-muted"></label>
+                            <span asp-validation-for="Employee.Salary" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-3 col-12">
+                            <select id="departmentSelect" asp-for="Employee.DepartmentId" asp-items="@Model.DepartmentList" class="form-select border-0 shadow">
+                                <option disabled selected>--Виберіть Департамент--</option>
+                            </select>
+                            <label asp-for="Employee.DepartmentId" class="ms-2 text-muted"></label>
+                            <span asp-validation-for="Employee.DepartmentId" class="text-danger"></span>
+                        </div>
+                        <div class="form-floating py-3 col-12 ">
+                            <select id="supervisorSelect" asp-for="Employee.SupervisorId" class="form-select border-0 shadow">
+                                <option disabled selected>--Виберіть безпосереднього керівника--</option>
+                            </select>
+                            <label asp-for="Employee.SupervisorId" class="ms-2 text-muted"></label>
+                        </div>
+
+                        <div class="row pt-2">
+                            <div class="col-6 col-md-3">
+                                @if (Model.Employee.Id != 0)
+                                {
+                                    <button type="submit" class="btn btn-primary form-control">Редагувати</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-primary form-control">Створити</button>
+                                }
+
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <a asp-controller="Home" asp-action="Index" class="btn btn-outline-light form-control border-dark text-muted">
+                                    Назад
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script>
+        const departmentSelect = document.getElementById("departmentSelect");
+        const supervisorSelect = document.getElementById("supervisorSelect");
+        const employeeList = @Html.Raw(Json.Serialize(Model.EmployeeList));
+        departmentSelect.addEventListener("change", function () {
+            const selectedDepartment = departmentSelect.value;
+            const employeesInDepartment = employeeList[selectedDepartment];
+            employeesInDepartment.forEach(function (employee) {
+                const option = document.createElement("option");
+                option.value = employee.value;
+                option.textContent = employee.text;
+                supervisorSelect.appendChild(option);
+            });
+        });
+
+        departmentSelect.dispatchEvent(new Event('change'));
+    </script>
+}

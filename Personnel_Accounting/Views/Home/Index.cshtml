@@ -1,0 +1,87 @@
+﻿@model List<Employee>
+﻿<div class="card d-inline-flex shadow border-0 m-0 p-0" style="margin-bottom: 60px; ">
+    <div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
+        <div class="rox">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Список працівників</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4 ">
+        <div class="row pb-3">
+            <div class="col-6">
+            </div>
+            <div class="col-6 text-end">
+                <a asp-controller="Home" asp-action="Upsert" class="btn btn-primary">
+                    <i class="bi bi-plus-circle"></i> Додати нового працівника
+                </a>
+            </div>
+        </div>
+        <div class="row pb-3">
+            <form asp-controller="Home" asp-action="Index" method="get" class="d-flex align-items-center">
+                <div class="form-group mx-2 flex-grow-1">
+                    <label for="birthYear">Рік народження:</label>
+                    <input type="number" class="form-control" name="birthYear" id="birthYear" min="0">
+                </div>
+                <div class="form-group mx-2 flex-grow-1">
+                    <label for="education">Освіта:</label>
+                    <input type="text" class="form-control" name="education" id="education">
+                </div>
+                <div class="form-group mx-2 flex-grow-1">
+                    <label for="salary">Оклад:</label>
+                    <input type="text" class="form-control" name="salary" id="salary" pattern="\d+(.\d+)?" title="Ввдіть коректне число">
+                </div>
+                <div class="mt-auto">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-search"></i> Шукати
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <table id="tblData" class="table table-bordered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Табельний Номер</th>
+                    <th>Прізвищe</th>
+                    <th>Ім'я</th>
+                    <th>По-батькові</th>
+                    <th>Рік Народження</th>
+                    <th>Освіта</th>
+                    <th>Посада</th>
+                    <th>Оклад</th>
+                    <th>Департамент</th>
+                    <th>Підпорякований</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employee in Model)
+                {
+                    <tr>
+                        <td>@employee.Id</td>
+                        <td>@employee.LastName</td>
+                        <td>@employee.FirstName</td>
+                        <td>@employee.MiddleName</td>
+                        <td>@employee.BirthYear</td>
+                        <td>@employee.Education</td>
+                        <td>@employee.Position</td>
+                        <td>@employee.Salary</td>
+                        <td>@employee.Department?.Name</td>
+                        <td>@employee.Supervisor?.Id</td>
+                        <td>
+                            <div class="w-75 btn-group" role="group">
+                                <a asp-controller="Home" asp-action="Upsert" asp-route-id="@employee.Id" class="btn btn-primary mx-2">
+                                    <i class="bi bi-pencil-square"></i> Редагувати
+                                </a>
+                                <a asp-controller="Home" asp-action="Delete" asp-route-id="@employee.Id" class="btn btn-danger mx-2">
+                                    <i class="bi bi-trash3"></i> Видалити
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

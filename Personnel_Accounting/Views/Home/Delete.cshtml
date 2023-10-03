@@ -1,0 +1,67 @@
+﻿@model Employee
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
+        <div class="rox">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Видалення Працівника</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4 ">
+        <form method="post" class="row">
+            <div class="border p-3">
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="LastName" disabled class="form-control border-0 shadow" />
+                    <label asp-for="LastName" class="ms-2 text-muted"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="FirstName" disabled class="form-control border-0 shadow" />
+                    <label asp-for="FirstName" class="ms-2 text-muted"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="MiddleName" disabled class="form-control border-0 shadow" />
+                    <label asp-for="MiddleName" class="ms-2 text-muted"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="FirstName" disabled class="form-control border-0 shadow" />
+                    <label asp-for="FirstName" class="ms-2 text-muted"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="BirthYear" disabled class="form-control border-0 shadow" />
+                    <label asp-for="BirthYear" class="ms-2 text-muted"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="Education" disabled class="form-control border-0 shadow" />
+                    <label asp-for="Education" class="ms-2 text-muted"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="Position" disabled class="form-control border-0 shadow" />
+                    <label asp-for="Position" class="ms-2 text-muted"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="Salary" disabled class="form-control border-0 shadow" />
+                    <label asp-for="Salary" class="ms-2 text-muted"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="DepartmentId" disabled class="form-control border-0 shadow" />
+                    <label asp-for="DepartmentId" class="ms-2 text-muted"></label>
+                </div>
+                <div class="form-floating py-2 col-12">
+                    <input asp-for="SupervisorId" disabled class="form-control border-0 shadow" />
+                    <label asp-for="SupervisorId" class="ms-2 text-muted"></label>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-6 col-md-3">
+                        <button type="submit" class="btn btn-danger form-control">Видалити</button>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-light form-control border-dark text-muted">
+                            Назад
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
